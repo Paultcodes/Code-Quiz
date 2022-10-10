@@ -4,31 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <title>Code Quiz</title>
   </head>
   <body>
-    <div class="main-stuff">
-      <h1>Coding Quiz Challenge</h1>
+    <div class="top-container">
+      <header>Take A Quiz!</header>
+      <h2 class="hide your-score">Your Score Is</h2>
+      <p><span class="margin" id="countdown">0</span></p>
+      <button class="margin" id="start-button">START</button>
+    </div>
+    <div class="question-container">
+      <p class="question-box margin"></p>
+    </div>
+    <div class="answer-section"></div>
+    <button class="hide next-button">Next</button>
+    <div class="hide point-tracker">
+      <p>Correct:<span class="margin correct"></span></p>
+      <p>Wrong:<span class="margin wrong"></span></p>
+    </div>
+    <div class="hide submit-section">
+      <p class="submit-box margin">Enter Your Score:<input type="text" /></p>
+      <p class="submit-box margin">Enter Your Initials:<input type="text" /></p>
+    </div>
 
-      <div id="timer" class="countdown"></div>
-      <div id="question" class="question-hide"></div>
-
-      <button id="start" class="start-button">START</button>
-    </div>
-    <!-- <div class="hide"> -->
-    <div id="answer-buttons" class="btn-grid">
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
-    </div>
-    </div>
-  </div>
-    <div id="entry">
-      <p class="enter-score">Enter Your Score</p>
-      <div><input type="text" id="enter-score" /></div>
-    </div>
     <script src="/script/script.js"></script>
   </body>
 </html>
