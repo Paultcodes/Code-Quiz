@@ -5,38 +5,48 @@ var answerSection = document.querySelector(".answer-section");
 var correctSpot = document.querySelector(".correct");
 var wrongSpot = document.querySelector(".wrong");
 var nextButton = document.querySelector(".next-button");
-var pointTracker = document.querySelector(".point-tracker")
-var yourScore = document.querySelector(".your-score")
-var choiceQuestions
-var secondsLeft = 90;
+var pointTracker = document.querySelector(".point-tracker");
+var yourScore = document.querySelector(".your-score");
+var submitSection = document.querySelector(".submit-section");
+var wrongHide = document.querySelector(".wrong-hide");
+var submitButton = document.querySelector(".submit-button");
+var submitInitials = document.querySelector("#msg");
+var playAgain = document.querySelector(".play-again");
+var endGameScore = document.querySelector(".endgame-score");
+var choiceQuestions;
+var secondsLeft = 30;
 var correctChoice = 0;
 var wrongChoice = 0;
-var correctAnswers = ["Paul", "26"];
-var alertA = "-3 Seconds";
-var endGameTrigger = ["Paul", "Jake", "Joe"]
+var correctAnswers = ["10", "26", "0"];
+var endGameTrigger = ["5", "3", "10"];
 
 var questions = [
   {
-    question: "What is my name?",
-    options: ["Paul", "Joe", "Jake"],
+    question: "What is 2 x 5?",
+    options: ["5", "3", "10"],
   },
   {
-    question: "What is my age?",
-    options: ["23", "40", "26"],
+    question: "What is -15 + 15?",
+    options: ["-30", "169", "0"],
   },
   {
-    question: "What is Java?",
-    options: ["Good", "Bad", "Ok"],
+    question: "What is 3 + 23?",
+    options: ["36", "26", "74"],
   },
 ];
 
 startButton.addEventListener("click", startQuiz);
+playAgain.addEventListener("click", restartGame);
+
+function restartGame() {
+  startQuiz();
+}
 
 function startQuiz() {
   setTime();
   startButton.classList.add("hide");
   startQuestion();
-  pointTracker.classList.remove("hide")
+  pointTracker.classList.remove("hide");
 }
 
 nextButton.addEventListener("click", nextQuestion);
@@ -65,11 +75,10 @@ function fill() {
   });
 }
 
-
 function resetState() {
   while (answerSection.firstChild)
     answerSection.removeChild(answerSection.firstChild);
-    while (questionSection.firstChild)
+  while (questionSection.firstChild)
     questionSection.removeChild(questionSection.firstChild);
 }
 
@@ -78,9 +87,10 @@ function setTime() {
     secondsLeft--;
     countDown.textContent = secondsLeft;
 
-    if (secondsLeft === 0) {
+    if (secondsLeft === 0 || secondsLeft <= -1) {
       clearInterval(timerInterval);
-      window.alert("Quiz Over!");
+      resetState();
+      endGame();
     }
   }, 1000);
 }
@@ -94,7 +104,7 @@ function check(event) {
     correctChoice++;
   } else {
     wrongChoice++;
-    secondsLeft--;
+    secondsLeft -= 10;
   }
   resetState();
   showNext();
@@ -108,9 +118,33 @@ function check(event) {
 }
 
 function endGame() {
-  window.alert("Quiz Over!")
-  countDown.classList.add("hide")
+  countDown.classList.add("hide");
   nextButton.classList.add("hide");
-  yourScore.classList.remove("hide")
+  yourScore.classList.remove("hide");
+  submitSection.classList.remove("hide");
+  wrongHide.classList.add("hide");
+  console.log(correctChoice);
+}
 
+submitButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  var playerScore = {
+    initials: submitInitials.value.trim(),
+    score: correctChoice,
+  };
+
+  if (!submitInitials.value) {
+    window.alert("hello")
+  }
+
+  localStorage.setItem("initials", JSON.stringify(playerScore));
+  showScore();
+});
+
+function showScore() {
+  var lastScore = JSON.parse(localStorage.getItem("initials"));
+  document.querySelector(".score-display").textContent =
+    lastScore.initials + " Scored a " + lastScore.score;
+  playAgain.classList.remove("hide");
 }
