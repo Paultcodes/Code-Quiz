@@ -19,21 +19,21 @@ var choiceQuestions;
 var secondsLeft = 30;
 var correctChoice = 0;
 var wrongChoice = 0;
-var correctAnswers = ["10", "26", "0", "No", "<p>"];
-var endGameTrigger = ["5", "3", "10"];
+var correctAnswers = ["B", "Br", "<img", "No", "<p>"];
+var endGameTrigger = ["Bold", "B", "Bl"];
 
 var questions = [
   {
-    question: "What is 2 x 5?",
-    options: ["5", "3", "10"],
+    question: "Choose the correct HTML tag to make text bold?",
+    options: ["Bold", "B", "Bl"],
   },
   {
-    question: "What is -15 + 15?",
-    options: ["-30", "169", "0"],
+    question: "What is the correct HTML tag for inserting a line break?",
+    options: ["Br", "Break", "Lb"],
   },
   {
-    question: "What is 3 + 23?",
-    options: ["36", "26", "74"],
+    question: "What is the correct HTML for inserting an image?",
+    options: ["<img", "<input>", "<button>"],
   },
   {
     question: "Is Java and JavaScript the same thing?",
@@ -138,24 +138,29 @@ submitButton.addEventListener("click", function (event) {
   event.preventDefault();
 
   var playerScore = {
-    initials: submitInitials.value.trim(),
+    initials: submitInitials.value,
     score: correctChoice,
   };
 
-  localStorage.setItem("initials", JSON.stringify(playerScore));
+  localStorage.setItem("info", JSON.stringify(playerScore));
   showScore();
 });
 
 function showScore() {
-  var lastScore = JSON.parse(localStorage.getItem("initials"));
+  var lastScore = JSON.parse(localStorage.getItem("info"));
   document.querySelector(".score-display").textContent =
     lastScore.initials + " Scored: " + lastScore.score;
 }
 
-showScore();
+function alwaysShow() {
+  var displayScore = JSON.parse(localStorage.getItem("info"));
+  document.querySelector(".score-display").textContent =
+    displayScore.initials + " Scored: " + displayScore.score;
+}
 
 playAgain.addEventListener("click", restart);
-
 function restart() {
   window.location.reload();
 }
+
+alwaysShow();
