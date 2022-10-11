@@ -13,11 +13,13 @@ var submitButton = document.querySelector(".submit-button");
 var submitInitials = document.querySelector("#msg");
 var playAgain = document.querySelector(".play-again");
 var endGameScore = document.querySelector(".endgame-score");
+var subtract = document.querySelector(".subtract");
+var completed = document.querySelector(".completed");
 var choiceQuestions;
 var secondsLeft = 30;
 var correctChoice = 0;
 var wrongChoice = 0;
-var correctAnswers = ["10", "26", "0"];
+var correctAnswers = ["10", "26", "0", "No", "<p>"];
 var endGameTrigger = ["5", "3", "10"];
 
 var questions = [
@@ -33,14 +35,17 @@ var questions = [
     question: "What is 3 + 23?",
     options: ["36", "26", "74"],
   },
+  {
+    question: "Is Java and JavaScript the same thing?",
+    options: ["Yes", "No"],
+  },
+  {
+    question: "What element represents a paragraph in HTML?",
+    options: ["<h1>", "<p>", "<a>"],
+  },
 ];
 
 startButton.addEventListener("click", startQuiz);
-playAgain.addEventListener("click", restartGame);
-
-function restartGame() {
-  startQuiz();
-}
 
 function startQuiz() {
   setTime();
@@ -51,8 +56,9 @@ function startQuiz() {
 
 nextButton.addEventListener("click", nextQuestion);
 function nextQuestion() {
-  resetState();
+  clear();
   fill();
+  subtract.classList.add("hide");
   nextButton.classList.add("hide");
 }
 
@@ -63,7 +69,7 @@ function showNext() {
 function startQuestion() {
   fill(choiceQuestions);
 }
-
+//Creates a button for each answer in the object and appends it to the correct location//
 function fill() {
   var choiceQuestions = questions.pop();
   questionSection.innerText = choiceQuestions.question;
@@ -74,47 +80,47 @@ function fill() {
     answerSection.appendChild(button);
   });
 }
-
-function resetState() {
+//Removes the questions and answers after clicking the next button//
+function clear() {
   while (answerSection.firstChild)
     answerSection.removeChild(answerSection.firstChild);
   while (questionSection.firstChild)
     questionSection.removeChild(questionSection.firstChild);
 }
-
+//Creates the countdown for the quiz//
 function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     countDown.textContent = secondsLeft;
 
-    if (secondsLeft === 0 || secondsLeft <= -1) {
+    if (secondsLeft <= 0) {
       clearInterval(timerInterval);
-      resetState();
+
+      clear();
       endGame();
     }
   }, 1000);
 }
 
 answerSection.addEventListener("click", check);
-
+//Checks if users answer is correct or wrong//
 function check(event) {
   var clickTarget = event.target;
   var userChoice = clickTarget.innerText;
   if (correctAnswers.includes(userChoice)) {
     correctChoice++;
   } else {
+    subtract.classList.remove("hide");
     wrongChoice++;
-    secondsLeft -= 10;
+    secondsLeft -= 3;
   }
-  resetState();
+  clear();
   showNext();
   correctSpot.textContent = correctChoice;
   wrongSpot.textContent = wrongChoice;
   if (endGameTrigger.includes(userChoice)) {
     endGame();
   }
-
-  console.log(userChoice);
 }
 
 function endGame() {
@@ -122,10 +128,12 @@ function endGame() {
   nextButton.classList.add("hide");
   yourScore.classList.remove("hide");
   submitSection.classList.remove("hide");
-  wrongHide.classList.add("hide");
-  console.log(correctChoice);
+  playAgain.classList.remove("hide");
+  subtract.classList.add("hide");
+  completed.classList.remove("hide");
 }
 
+//Takes the users initials and score and places them into local storage and then retrieves them to print on screen//
 submitButton.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -134,10 +142,6 @@ submitButton.addEventListener("click", function (event) {
     score: correctChoice,
   };
 
-  if (!submitInitials.value) {
-    window.alert("hello")
-  }
-
   localStorage.setItem("initials", JSON.stringify(playerScore));
   showScore();
 });
@@ -145,6 +149,13 @@ submitButton.addEventListener("click", function (event) {
 function showScore() {
   var lastScore = JSON.parse(localStorage.getItem("initials"));
   document.querySelector(".score-display").textContent =
-    lastScore.initials + " Scored a " + lastScore.score;
-  playAgain.classList.remove("hide");
+    lastScore.initials + " Scored: " + lastScore.score;
+}
+
+showScore();
+
+playAgain.addEventListener("click", restart);
+
+function restart() {
+  window.location.reload();
 }

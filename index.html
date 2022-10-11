@@ -9,33 +9,34 @@
   </head>
   <body>
     <div class="top-container">
-      <header>Take A Quiz!</header>
-      <h2 class="hide your-score">Your Score Is <span class="endgame-score"></span></h2>
-      <p><span class="margin" id="countdown">0</span></p>
+      <h1>Take A Quiz!</h1>
+      <h4 class="hide completed">Quiz Is Over!</h4>
+      <h2 class="hide your-score"></h2>
+      <p><span class="margin" id="countdown"></span></p>
+      <p class="hide subtract">-3 seconds</p>
       <button class="margin" id="start-button">START</button>
     </div>
     <div class="question-container">
       <p class="question-box margin"></p>
     </div>
     <div class="answer-section"></div>
+
     <button class="hide next-button">Next</button>
     <div class="hide point-tracker">
-      <p>Correct:<span class="margin correct"></span></p>
-      <p class="wrong-hide">Wrong:<span class="margin wrong"></span></p>
+      <p>Correct:<span class="margin correct">0</span></p>
+      <p class="wrong-hide">Wrong:<span class="margin wrong">0</span></p>
     </div>
     <div class="hide submit-section">
       <label for="msg">Enter Your Initials</label>
-            <textarea id="msg" name="comments"></textarea>
+      <input id="msg" name="comments"></input>
       <button class="submit-button">Submit</button>
+    </div>
+    <button class="hide play-again">Play Again</button>
+    <div class="high-score">
+      <h3>Your Last Score</h3>
       <p class="score-display"></p>
     </div>
-    <button class="play-again hide">Restart Quiz</button>
-
 
     <script src="/script/script.js"></script>
   </body>
 </html>
-
-
-
-

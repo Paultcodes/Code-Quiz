@@ -3,8 +3,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 40px;
+  background-color: rgba(210, 255, 127, 0.334);
 }
 
 * {
@@ -37,28 +38,47 @@ body {
   opacity: 50%;
 }
 
-/* .btn {
-  width: 50px;
-  height: 30px;
-} */
-
 button {
   margin: 10px;
+}
+
+.question-box {
+  font-style: italic;
 }
 
 .hide {
   display: none;
 }
 
+label {
+  font-size: 30px;
+}
+
 button {
   width: 100px;
   height: 50px;
+  font-size: 20px;
 }
 
+.completed {
+  color: green;
+}
 
+button:hover {
+  cursor: pointer;
+}
 
+.high-score {
+  display: flex;
+  flex-direction: column;
+  margin-top: 300px;
+  align-items: center;
+}
 
+.subtract {
+  color: red;
+}
 
-
-
-
+#countdown {
+  color: blue;
+}
