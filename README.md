@@ -14,3 +14,8 @@ Clone the repository by copying the SSH and key and running "git clone" follwed 
 Here is a screenshot of the website and the link to the URL.
 
 
+
+
+![Editing Code-Quiz_README md at main · Paultcodes_Code-Quiz - Google Chrome 10_11_2022 3_59_20 PM](https://user-images.githubusercontent.com/111453328/195197201-fc1181fb-c73b-460a-825e-d3a1c00cb1fc.png)
+
+
